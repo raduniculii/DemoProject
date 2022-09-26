@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DemoProject.Data;
+@using DemoProject.Data.Common;
+
+@inject SignInManager<AppUser> SignInManager
+
+
+<ul class="navbar navbar-nav">
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item dropdown">
+        <a  class="nav-link text-dark dropdown-toggle" type="button" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Administration"><i class="fas fa-cog" ></i> Administration</a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li class="nav-item">
+                <a  class="nav-link dropdown-item text-dark" asp-page="/Administration/Roles" title="Roles"><i class="fa-solid fa-user-tag fa-fw" ></i> Roles</a>
+            </li>
+            <li class="nav-item">
+                <a  class="nav-link dropdown-item text-dark" asp-page="/Administration/Users" title="Users"><i class="fa-solid fa-users fa-fw"></i> Users</a>
+            </li>
+        </ul>
+    </li>
+    <li class="nav-item dropdown">
+        <a  class="nav-link text-dark dropdown-toggle" type="button" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Click for more options">Hi, @User.Identity?.Name!</a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li class="nav-item">
+                <a  class="nav-link dropdown-item text-dark" asp-page="/Account/Manage/Index" title="Manage"><i class="fas fa-fw fa-user" ></i> Manage</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/")" method="post" >
+                    <button  type="submit" class="nav-link btn btn-link text-dark dropdown-item" title="Logout"><i class="fas fa-fw fa-sign-out-alt text-danger" ></i> Logout</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-page="/Account/Login"><i class="fas fa-fw fa-sign-in-alt" ></i> Login</a>
+    </li>
+}
+</ul>

@@ -1,0 +1,77 @@
+@model string
+<div id="@Model" class="mt-1 app-list">
+    <div class="section-list-search">
+        <div class="list-search-active">Search results: </div>
+        <div class="input-group">
+            <input data-id="txtQuickSearch" type="text" class="form-control" placeholder="search..." aria-label="search...">
+            <button data-id="btnRemoveQuickSearch" class="btn btn-outline-secondary border border-outline-light remove-search" type="button" title="Clear search (show all)"><i class="fas fa-times"></i></button>
+            <button data-id="btnQuickSearch" class="btn btn-dark" type="button" title="Search"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+    <div class="alert alert-secondary section-no-records" role="alert">
+        There are no items in the list.
+    </div>
+    <div class="alert alert-danger section-no-matching-records" role="alert">
+        There are no items matching your search criteria. Try a new search or <button data-id="btnRemoveSearch" class="btn btn-link alert-link p-0 align-baseline">show all</button>.
+    </div>
+    <div class="d-none">
+        <!--row buttons-->
+        <a data-id="lnkRowDelete" href="#" class='text-danger px-0 me-3' type='button' title='Delete'><i class="fas fa-lg fa-times"></i></a>
+        <a data-id="lnkRowViewItemHist" href="#" class='text-secondary px-0' type='button' title='History'><i class="fas fa-lg fa-history"></i></a>
+        <a data-id="lnkRowEditItem" href="#" class='text-primary px-0 ms-1' style='position: relative; margin-top: -2px;' type='button' title='Edit'><i class="fas fa-lg fa-edit"></i></a>
+
+        <i data-id="iconInsert" class="fas fa-plus" title="Add"></i>
+        <i data-id="iconUpdate" class="fas fa-edit" title="Edit"></i>
+        <i data-id="iconDelete" class="fas fa-times" title="Delete"></i>
+    </div>
+    <table class="rounded">
+        <thead>
+            <tr data-id="headerRow">
+                <th data-id="rowButtons" data-cell-class="hover-only"></th>
+
+                <th data-id="rowCols"></th>
+
+                <th data-id="who" data-name="HistActionPerformedBy" style="width: 300px;" data-hist-only>Who</th>
+                <th data-id="what" data-name="HistActionType" data-sort-by="HistActionTypeOrder" style="width: 30px;" data-hist-only>What</th>
+                <th data-id="when" data-name="HistActionDateString" data-sort-by="HistActionDate" style="width: 160px;" data-hist-only>When</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td data-id="pagerTd">
+                    <div class="pager-container">
+                        <div class="pager-left">
+                            Page
+                            <select data-id="ddlPageNumber">
+                            </select>
+                        </div>
+                        <div class="pager-mid">
+                            <button type="button" class="btn btn-dark btn-sm" disabled="disabled" data-id="btnFirst" title="First page"><i class="fas fa-angle-double-left"></i></button>
+                            <button type="button" class="btn btn-dark btn-sm" disabled="disabled" data-id="btnPrev" title="Previous page"><i class="fas fa-angle-left"></i></button>
+                            
+                            <span style="display: inline-block; text-align: center; min-width: 200px; vertical-align: middle;">
+                                Items <span data-id="lblFrom"></span> - <span data-id="lblTo"></span> out of <span data-id="lblOutOf"></span>
+                            </span>
+                            
+                            <button type="button" class="btn btn-dark btn-sm" disabled="disabled" data-id="btnNext" title="Next page"><i class="fas fa-angle-right"></i></button>
+                            <button type="button" class="btn btn-dark btn-sm" disabled="disabled" data-id="btnLast" title="Last page"><i class="fas fa-angle-double-right"></i></button>
+                        </div>
+                        <div class="pager-right">
+                            Items/Page:
+                            <select data-id="ddlPageSize">
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="section-bottom-buttons">
+        <!-- Ok Cancel   Apply-->
+        <button data-id="lnkBack" class="btn btn-dark" type="button" title="Back"><i class="fa-solid fa-circle-left"></i> Back</button>
+        <button data-id="lnkAdd" class="btn btn-dark" type="button" title="Add"><i class="fas fa-plus"></i> Add</button>
+        <button data-id="lnkDeletedItems" class="btn btn-dark" type="button" title="Deleted items"><i class="fas fa-archive"></i> Deleted items</button>
+    </div>
+</div>

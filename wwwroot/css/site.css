@@ -1,0 +1,328 @@
+html, body {
+  font-size: 14px;
+  /*
+  position: relative;
+  min-height: 100%;
+  */
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  html, body {
+    font-size: 16px;
+  }
+}
+
+body {
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.fill-vertical
+{
+  flex-grow: 1;
+  position: relative;
+  overflow: auto;
+}
+
+.loading-notice
+{
+  display: none;
+  font-size: 3em;
+  opacity: 0.5;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+body.not-loaded .loading-notice
+{
+  display: block;
+  background: linear-gradient(90deg, #fff 45%, #555 50%, #fff 55%);
+  background-size: 200%;
+  background-position: 90%;
+  animation-duration: 2s;
+  animation-name: bgRoll;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bgRoll {
+  0% { background-position: 90%; }
+  50% { background-position: 10%; }
+  100% { background-position: 90%; }
+}
+
+body.loading .loading-notice {
+  display: block;
+  background-color: #fff;
+  animation-duration: 1s;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0.1 }
+  100% { opacity: 0.5 }
+}
+
+body.not-loaded main
+{
+  display: none;
+}
+
+.app-list
+{
+  min-width: 600px;
+}
+
+.section-list-search
+{
+  min-height: 3em;
+}
+
+.active-search .section-list-search .list-search-active
+{
+  visibility: visible;
+  margin-bottom: 10px;
+}
+
+.section-list-search .list-search-active, .no-records.active-search .section-list-search .list-search-active
+{
+  visibility: hidden;
+  float: left;
+  clear: none;
+  font-size: 2em;
+  line-height: 1em;
+  font-style: italic;
+  color: #00B;
+}
+
+.section-list-search>.input-group
+{
+  margin-bottom: 10px;
+  float: right;
+  clear: none;
+  width: 400px;
+}
+
+.remove-search
+{
+  display: none;
+}
+
+.active-search .remove-search
+{
+  display: inline-block;
+}
+
+.no-records .section-list-search
+{
+  display: none;
+}
+
+.active-search.no-records .section-list-search
+{
+  display: block;
+}
+
+.section-no-records
+{
+  display: none;
+}
+
+.no-records .section-no-records
+{
+  display: block;
+  margin-top: 2em;
+}
+
+.active-search.no-records .section-no-records
+{
+  display: none;
+}
+
+.section-no-matching-records
+{
+  display: none;
+}
+
+.active-search.no-records .section-no-matching-records
+{
+  display: block;
+  clear: both;
+}
+
+.no-records table
+{
+  display: none;
+}
+
+.app-list table thead th
+{
+  background-color: #CCC;
+  font-weight: bold;
+  text-align: center;
+  padding: 0;
+}
+
+.app-list.active-search table th, .app-list.active-search table tfoot td {
+  background-color: #CCD;
+  color: #008;
+  font-style: italic;
+}
+
+.app-list.active-search .sort-link.sort-main{
+  background-color: #779;
+}
+
+.app-list table
+{
+  background-color: #CED4DA;
+  border-spacing: 1px;
+  border-collapse: separate;
+  min-width: 100%;
+}
+
+.app-list table tbody td
+{
+  text-align: left;
+  padding: 3px 5px;
+  background-color: #FFF;
+}
+
+.app-list table tbody tr .hover-only a
+{
+  /* display: none; */
+  opacity: .2;
+}
+
+.app-list table tbody tr:hover .hover-only a
+{
+  /* display: unset; */
+  opacity: 1;
+}
+
+.app-list table tbody tr:hover td, .app-list table tbody tr.alt:hover td
+{
+  background-color: lightgoldenrodyellow;
+}
+
+.app-list table tbody tr.alt td
+{
+  background-color: #EEE;
+}
+
+.app-list table tfoot td
+{
+  padding: 0;
+  background-color: #CCC;
+}
+
+.app-list table tfoot td .pager-container
+{
+  height: 30px;
+  width: 100%;
+  margin: 5px 0;
+  padding: 0 5px;
+  display: flex;
+  line-height: 30px;
+}
+
+.app-list table tfoot td .pager-left, .app-list table tfoot td .pager-right
+{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.app-list table tfoot td .pager-mid
+{
+  height: 100%;
+  margin: 0;
+  margin-top: -2px;
+  padding: 0;
+  flex-grow: 1;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.app-list .sort-link
+{
+  cursor: pointer;
+  padding: 1em 0;
+}
+
+.app-list .sort-link::before, .app-list .sort-link::after
+{
+  font-size: .9em;
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 20px;
+  height: 1em;
+  display: inline-block;
+  visibility: hidden;
+
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  box-sizing: border-box;
+
+  content: "\f0d8";
+}
+
+.app-list .sort-link.sort-main
+{
+  background-color: #777;
+}
+
+.app-list .sort-link.sort-main::before
+{
+  font-size: 1.5em;
+  vertical-align: top;
+}
+
+.app-list .sort-link.sorted-asc::before
+{
+  content: "\f0d8";
+  visibility: visible;
+}
+
+.app-list .sort-link.sorted-desc::before
+{
+  content: "\f0d7";
+  visibility: visible;
+}
+
+.section-bottom-buttons
+{
+  margin-top: 20px;
+  text-align: center;
+}
+
+.section-bottom-buttons .btn
+{
+  margin: 20px;
+}
+
+.form-group .form-text.text-danger
+{
+  display: inline-block;
+  height: 1em;
+}
+
+.input-validation-error
+{
+  border-color: #A00;
+}

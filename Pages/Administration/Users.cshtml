@@ -1,0 +1,85 @@
+@page
+@using Microsoft.AspNetCore.Html
+@inject Data.Common.AppDbContext db;
+@model Models.AppUserDto
+@{
+    ViewData["Title"] = "Users";
+    
+    List<AppRole> GetAllRoles(){ return db.AppRoles.ToList(); }
+
+    var listProgName = "Users";
+}
+<h1 style="margin-bottom: -.2em;"><i class="fa-solid fa-users fa-fw"></i> <span id="hPageTitle">@ViewData["Title"]</span></h1>
+@{
+    var listTemplateName = "list-template";
+}
+<div class="d-none">
+    <partial name="Partials/ListTemplate" model="listTemplateName" />
+</div>
+<div data-module='@Url.Content("~/api/Users")' data-base-url="@Url.RouteUrl(RouteData.Values["controller"])" data-list-prog-name="@listProgName">
+    <table data-list>
+        <tr>
+            <th data-name="UserName" style="width: 200px;">@Html.DisplayNameFor(m => m.UserName)</th>
+            <th data-name="FullName" data-search-by="FirstName,LastName" style="min-width: 300px;">@Html.DisplayNameFor(m => m.FullName)</th>
+            <th data-name="RoleName" style="width: 200px;">@Html.DisplayNameFor(m => m.AppRoleId)</th>
+            <th data-name="Email" style="width: 200px;">@Html.DisplayNameFor(m => m.Email)</th>
+        </tr>
+    </table>
+    <div data-details class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Actualizare Utilizator</h5>
+                    <button type="button" class="close btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form data-id="editForm">
+                        <div class="form-group">
+                            <label asp-for="UserName"></label>
+                            <input asp-for="UserName" class="form-control" placeholder="Nume utilizator" /> 
+                            <span asp-validation-for="UserName" class="form-text text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName"></label>
+                            <input asp-for="FirstName" class="form-control" /> 
+                            <span asp-validation-for="FirstName" class="form-text text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName"></label>
+                            <input asp-for="LastName" class="form-control" /> 
+                            <span asp-validation-for="LastName" class="form-text text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AppRoleId"></label>
+                            @Html.DropDownListFor(model => model.AppRoleId, new SelectList(GetAllRoles(), "Id", "Name"), " - alege - ", new { @class = "form-control" })
+                            <span asp-validation-for="AppRoleId" class="form-text text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" /> 
+                            <span asp-validation-for="Email" class="form-text text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TwoFactorRequired" class="form-check-label"></label>
+                            <input type="checkbox" name="TwoFactorRequired" /> 
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-id="btnSave"><i class="fa-solid fa-check"></i> Salveaza</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i> Anuleaza</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        window.addEventListener("load", function(){
+            CreateModules("@listTemplateName", '@ViewData["Title"]');
+        });
+    </script>
+}

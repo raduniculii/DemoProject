@@ -1,0 +1,75 @@
+@page
+@using Microsoft.AspNetCore.Html
+@inject Data.Common.AppDbContext db;
+@model Models.AppRoleDto
+@{
+    ViewData["Title"] = "Roles";
+    List<Data.AppClaimType> GetAllClaimTypes(){ return db.AppClaimTypes.ToList(); }
+        var listProgName = "Roles";
+}
+<h1 style="margin-bottom: -.2em;"><i class="fa-solid fa-user-tag fa-fw" ></i> <span id="hPageTitle">@ViewData["Title"]</span></h1>
+@{
+    var listTemplateName = "list-template";
+}
+<div class="d-none">
+    <partial name="Partials/ListTemplate" model="listTemplateName" />
+</div>
+<div data-module='@Url.Content("~/api/Roles")' data-base-url="@Url.RouteUrl(RouteData.Values["controller"])" data-list-prog-name="@listProgName">
+    <table data-list>
+        <tr>
+            <th data-name="Name" style="width: 200px;">@Html.NameFor(m => m.Name)</th>
+            <th data-name="Description" style="min-width: 300px;">@Html.NameFor(m => m.Description)</th>
+            <th data-name="Permissions" style="width: 200px;">@Html.NameFor(m => m.Claims)</th>
+        </tr>
+    </table>
+    <div data-details class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save role</h5>
+                    <button type="button" class="close btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form data-id="editForm">
+                        <div class="form-group">
+                            <label asp-for="Name"></label> 
+                            <input asp-for="Name" class="form-control" /> 
+                            <span asp-validation-for="Name" class="form-text text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description"></label> 
+                            <textarea asp-for="Description" class="form-control" placeholder="Some notes" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="form-text text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.NameFor(m => m.Claims)</label>
+                            <div style="padding-left: 1em;">
+                            @foreach (var c in GetAllClaimTypes())
+                            {
+                                <div class="form-check">
+                                    <input id="Permissions_@(c.Id)" class="form-check-input" type="checkbox" name="Claims" value="@c.Name" />
+                                    <label for="Permissions_@(c.Id)" class="form-check-label">@c.Name</label>
+                                </div>
+                            }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-id="btnSave"><i class="fa-solid fa-check"></i> Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        window.addEventListener("load", function(){
+            CreateModules("@listTemplateName", '@ViewData["Title"]');
+        });
+    </script>
+}
