@@ -12,6 +12,8 @@ From the same folder run "dotnet restore", then "dotnet run" and then click on o
 
 The existing default login is user: "admin@demo.test", pw: "ad-miniPa55" , all without quotes, you can register more too, permissions are not enforced in any way, you just need a login.
 
+For an already setup app, go to optefi.ro/demoproject , login with the mentioned credentials and from the top menu select Administration -> Roles.
+
 I hope I have managed to translate everything into english, remove code that didn't make sense now, and keep things functional.
 
 ### Interesting code: ###
